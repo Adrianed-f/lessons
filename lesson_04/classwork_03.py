@@ -12,4 +12,5 @@ result = int(0)
 while i <= n:
     result += i**3
     i += 1
+
 print(result)
