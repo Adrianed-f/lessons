@@ -39,13 +39,11 @@ while True:
 
 print("Третий список:", l3)
 
-l1.extend(l2)
 
-for item in l1:
-    for item2 in l3:
-        if item == item2:
-            l1.remove(item)
+for x in l1:
+    if x in l2 and x not in l3:
+        print(x)
 
-print("Финальный список:", l1)
+print("Финальный список:", x)
 
 
