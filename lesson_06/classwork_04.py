@@ -22,9 +22,12 @@ def nominal_to_value(n):
         "K" : 4,
         "A" : 1,
     }
+    return d[n]
+
 
 n, _ = get_random_card()
 value = nominal_to_value(n)
+
 
 current_sum = value
 while True:
@@ -37,7 +40,7 @@ while True:
         current_sum += value
 
         if current_sum > 21:
-            print("Game over, ты проиграл")
+            print("Game over, ты проиграл", current_sum)
             break
 
         if current_sum == 21:
