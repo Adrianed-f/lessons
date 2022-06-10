@@ -33,8 +33,6 @@ def main():
     print(dog.age, dog.name, dog.weight, dog.height)
     dog.jump()
     dog.run()
-    dog.talk()
-
 
 if __name__ == "__main__":
     main()
