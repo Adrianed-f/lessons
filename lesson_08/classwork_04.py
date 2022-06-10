@@ -34,5 +34,6 @@ def main():
     dog.jump()
     dog.run()
 
+
 if __name__ == "__main__":
     main()
