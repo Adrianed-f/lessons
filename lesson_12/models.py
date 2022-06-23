@@ -1,35 +1,56 @@
-from sqlalchemy import Integer, String, Column, ForeignKey
+from sqlalchemy import Integer, String, Column, ForeignKey, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from decimal import Decimal
 
 Base = declarative_base()
 
 
 class User(Base):
     __tablename__ = "user"
+
     id = Column(Integer, primary_key=True)
     email = Column(String)
     password = Column(String)
 
-    profile = relationship("Profile", back_populates="user", uselist=False)
-    addresses = relationship("Address", back_populates="user")
+    purchases = relationship("Purchase", back_populates="user")
 
 
-class Profile(Base):
-    __tablename__ = "profile"
+class Purchase(Base):
+    __tablename__ = "purchase"
+
+    user_id = Column(ForeignKey("user.id"), primary_key=True)
+    product_id = Column(ForeignKey("product.id"), primary_key=True)
+    count = Column(Integer)
+
+    user = relationship("User", back_populates="purchases")
+    product = relationship("Product", back_populates="purchases")
+
+
+class Product(Base):
+    __tablename__ = "product"
     id = Column(Integer, primary_key=True)
-    phone = Column(String)
-    age = Column(Integer)
+    name = Column(String)
+    price = Column(Float)
 
-    user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("User", back_populates="profile")
+    purchases = relationship("Purchase", back_populates="product")
 
 
-class Address(Base):
-    __tablename__ = "address"
-    id = Column(Integer, primary_key=True)
-    city = Column(String)
-    address = Column(Integer)
+# class Profile(Base):
+#     __tablename__ = "profile"
+#     id = Column(Integer, primary_key=True)
+#     phone = Column(String)
+#     age = Column(Integer)
+#
+#     user_id = Column(Integer, ForeignKey("user.id"))
+#     user = relationship("User", back_populates="profile")
 
-    user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("User", back_populates="addresses")
+
+# class Address(Base):
+#     __tablename__ = "address"
+#     id = Column(Integer, primary_key=True)
+#     city = Column(String)
+#     address = Column(Integer)
+#
+#     user_id = Column(Integer, ForeignKey("user.id"))
+#     user = relationship("User", back_populates="addresses")
